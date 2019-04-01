@@ -1,36 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Threading.Tasks;
+using System.Web.Http;
+using MasterChief.DotNet.Core.Config;
 using MasterChief.DotNet.ProjectTemplate.WebApi;
 using MasterChief.DotNet.ProjectTemplate.WebApi.Model;
-using MasterChief.DotNet4.Utilities.Result;
+using MasterChief.DotNet.ProjectTemplate.WebApi.Result;
 using MasterChief.DotNet4.Utilities.Common;
+using MasterChief.DotNet4.Utilities.Result;
+
 namespace MasterChief.ProjectTemplate.WebApiSample.Controllers
 {
     public class AccountController : AuthorizeController
     {
-
-
-        public AccountController(IApiAuthorize apiAuthorize, IAppConfigService appCfgService) : base(apiAuthorize, appCfgService)
+        public AccountController() : this(new JwtApiAuthorize(), new AppConfigService(new CacheConfigContext()))
         {
-        }
 
-        public AccountController(IAppConfigService appConfig) : base(appConfig)
+        }
+        public AccountController(IApiAuthorize apiAuthorize, IAppConfigService appCfgService) : base(
+            apiAuthorize,
+            appCfgService)
         {
         }
 
         protected override CheckResult<IdentityUser> GetIdentityUser(string userId, string passWord)
         {
-            if (userId == "0000" && passWord == "0000")
-                return CheckResult<IdentityUser>.Success(new IdentityUser() { UserId = userId.ToGuidOrDefault(Guid.Empty), Password = passWord });
+            if (userId == "2c96ff542072420bc8d33bdd73bb9488" && passWord == "0000")
+                return CheckResult<IdentityUser>.Success(new IdentityUser
+                { UserId = userId.ToGuidOrDefault(Guid.Empty), Password = passWord });
             return CheckResult<IdentityUser>.Fail("用户名称或密码错误。");
         }
 
-        protected override OperatedResult<IdentityToken> CreateIdentityToken(string userId, string passWord, string signature, string timestamp, string nonce, Guid appid)
+        [HttpPost]
+        public async Task<ApiResult<IdentityToken>> GetIdentityToken(string userId, string passWord,
+            string signature, string timestamp, string nonce, Guid appid)
         {
-            return base.CreateIdentityToken(userId, passWord, signature, timestamp, nonce, appid);
+            
+            return await Task.Run(() => base.CreateIdentityToken(userId, passWord, signature, timestamp, nonce, appid));
         }
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-16"?>
+<AppConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AppId>622cf655-1559-4328-b493-eac7aa833f2e</AppId>
+  <AppSecret>097ef3b7-7fe3-4e84-b8fe-24a058eaf66f</AppSecret>
+  <SharedKey>275CD14E-6B51-444b-BC1B-88776160F81E</SharedKey>
+  <SignatureExpiredMinutes>10</SignatureExpiredMinutes>
+  <TokenExpiredDay>7</TokenExpiredDay>
+</AppConfig>

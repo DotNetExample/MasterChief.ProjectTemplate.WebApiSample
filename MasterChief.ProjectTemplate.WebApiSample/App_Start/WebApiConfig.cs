@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using MasterChief.DotNet.ProjectTemplate.WebApi.Component;
+using MasterChief.ProjectTemplate.WebApiSample.Filter;
+using Newtonsoft.Json;
 
 namespace MasterChief.ProjectTemplate.WebApiSample
 {
@@ -15,10 +16,26 @@ namespace MasterChief.ProjectTemplate.WebApiSample
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new {id = RouteParameter.Optional}
             );
+
+            var jsonFormatter = new JsonMediaTypeFormatter
+            {
+                SerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat //,
+                    //ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+                }
+            };
+
+            config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(jsonFormatter));
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            //config.EnableSystemDiagnosticsTracing();
+            config.Filters.Add(new ValidateRequestAttribute());
+            config.Filters.Add(new ExceptionLogAttribute());
         }
     }
 }
