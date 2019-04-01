@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using MasterChief.DotNet4.Utilities.Result;
+using MasterChief.DotNet.ProjectTemplate.WebApi.Result;
 using MasterChief.ProjectTemplate.WebApiSample.Filter;
 using MasterChief.ProjectTemplate.WebApiSample.Models;
 using MasterChief.ProjectTemplate.WebApiSample.Request;
@@ -11,11 +11,11 @@ namespace MasterChief.ProjectTemplate.WebApiSample.Controllers
 {
     public class ArticleController : ApiController
     {
-        public ArticleController():this(new ArticleServices())
+        private readonly IArticleServices _articleServices;
+
+        public ArticleController() : this(new ArticleServices())
         {
         }
-
-        private readonly IArticleServices _articleServices;
 
         public ArticleController(IArticleServices articleServices)
         {
@@ -30,11 +30,11 @@ namespace MasterChief.ProjectTemplate.WebApiSample.Controllers
         [HttpPost]
         [ValidateRequest]
         [UserLoggedIn]
-        public async Task<OperatedResult<Article>> Get([FromUri] ArticleRequest request)
+        public async Task<ApiResult<Article>> Get([ModelBinder] ArticleRequest request)
         {
             var keyId = request.Id;
 
-            return await Task.Run(() => OperatedResult<Article>.Success(_articleServices.Get(keyId)));
+            return await Task.Run(() => ApiResult<Article>.Success(_articleServices.Get(keyId)));
         }
     }
 }

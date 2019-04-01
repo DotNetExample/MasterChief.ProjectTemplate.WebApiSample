@@ -17,8 +17,8 @@ namespace MasterChief.ProjectTemplate.WebApiSample
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",
-                "api/{controller}/{id}",
-                new {id = RouteParameter.Optional}
+                "api/{controller}/{keyId}",
+                new { keyId = RouteParameter.Optional}
             );
 
             var jsonFormatter = new JsonMediaTypeFormatter
@@ -36,6 +36,7 @@ namespace MasterChief.ProjectTemplate.WebApiSample
             //config.EnableSystemDiagnosticsTracing();
             config.Filters.Add(new ValidateRequestAttribute());
             config.Filters.Add(new ExceptionLogAttribute());
+            config.Filters.Add(new UserLoggedInAttribute());
         }
     }
 }

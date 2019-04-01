@@ -14,5 +14,6 @@ namespace MasterChief.ProjectTemplate.WebApiSample.Request
             get;
             set;
         }
+
     }
 }
