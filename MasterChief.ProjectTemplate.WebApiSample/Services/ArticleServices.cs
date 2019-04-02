@@ -4,7 +4,7 @@ using MasterChief.ProjectTemplate.WebApiSample.Models;
 
 namespace MasterChief.ProjectTemplate.WebApiSample.Services
 {
-    public sealed class ArticleServices : IArticleServices
+    public  class ArticleServices : IArticleServices
     {
         private readonly List<Article> _articles = new List<Article>();
 

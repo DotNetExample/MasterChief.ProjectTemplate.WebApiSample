@@ -15,6 +15,7 @@ namespace MasterChief.ProjectTemplate.WebApiSample.Filter
         {
         }
 
+
         public UserLoggedInAttribute(IApiAuthenticate apiAuthenticate, IAppConfigService appCfgService) : base(
             apiAuthenticate, appCfgService)
         {
