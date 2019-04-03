@@ -1,8 +1,10 @@
 # WebApi 快速构建示例
 > 1. 实现代码：[**MasterChief.DotNet.ProjectTemplate.WebApi**](https://github.com/YanZhiwei/MasterChief/tree/master/MasterChief.DotNet.ProjectTemplate.WebApi)
-> 2. Nuget : Install-Package MasterChief.DotNet.ProjectTemplate.WebApi 
+> 2. Nuget : [![Travis](https://img.shields.io/badge/MasterChief.DotNet.ProjectTemplate.WebApi-1.0.0.5-blue.svg)](https://www.nuget.org/packages/MasterChief.DotNet.ProjectTemplate.WebApi/)
 > 3. 实现WebApi开发中诸如授权验证，缓存，参数验证，异常处理等，方便快速构建项目而无需过多关心技术细节；
 > 4. 欢迎Star，欢迎PR；
+
+
 
 目录
 =================
